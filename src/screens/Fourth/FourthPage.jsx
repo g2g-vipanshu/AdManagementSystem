@@ -3,15 +3,38 @@ import './css/FourthPage.css';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
+import { PostData } from '../../Api';
 
 function FourthPage() {
     const navigate = useNavigate();
     const { userData, setUserData } = useContext(UserContext);
+    const [Loading, setLoading] = useState(false)
     const [link, setLink] = useState('');
 
-    const handleSubmit = () => {
-        const finalData = { ...userData, link };
-        console.log("Form Submitted", finalData);
+    const handleSubmit = async() => {
+        // const finalData = { ...userData, link };
+        // console.log("Form Submitted", finalData);
+        // const submission = await PostData("/api/submitform/", finalData)
+        // navigate("/dashboard")
+         try {
+      setLoading(true);
+      const finalData = { ...userData, link };
+      console.log("Form Submitted", finalData);
+
+      const response = await PostData("/api/submitform/", finalData);
+
+      if (response?.is_success) {
+        navigate("/dashboard");
+      } else {
+        alert("Submission failed. Please try again.");
+        console.error(response);
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("An error occurred during submission.");
+    } finally {
+      setLoading(false);
+    }
     }
 
     return (
