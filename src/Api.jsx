@@ -3,8 +3,8 @@ import axios from 'axios';
 
 const token = localStorage.getItem('token');
 const api = axios.create({
-  baseURL: 'http://localhost:8005',
-//   baseURL: import.meta.env.VITE_API_BASE,
+  baseURL: 'http://10.5.50.66:8005',
+  //   baseURL: import.meta.env.VITE_API_BASE,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',

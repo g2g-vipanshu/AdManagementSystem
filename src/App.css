@@ -1,9 +1,13 @@
-/* Full-page white background */
+* {
+  box-sizing: border-box;
+}
+
 body, html, #root {
   margin: 0;
   padding: 0;
   background-color: white;
   height: 100%;
+  overflow-x: hidden;
 }
 
 .App {
