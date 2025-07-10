@@ -3,16 +3,39 @@ import './css/FourthPage.css';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
+import { PostData } from '../../Api';
 
 function FourthPage() {
     const navigate = useNavigate();
     const { userData, setUserData } = useContext(UserContext);
+    const [Loading, setLoading] = useState(false)
     const [link, setLink] = useState('');
+    const [password, setpassword] = useState('');
 
-    const handleSubmit = () => {
-        const finalData = { ...userData, link };
-        console.log("Form Submitted", finalData);
+    const handleSubmit = async() => {
+        // const finalData = { ...userData, link };
+        // console.log("Form Submitted", finalData);
+        // const submission = await PostData("/api/submitform/", finalData)
+        // navigate("/dashboard")
+         try {
+      setLoading(true);
+      const finalData = { ...userData, link, password };
+      console.log("Form Submitted", finalData);
+
+      const response = await PostData("/api/submitform/", finalData);
+
+      if (response?.is_success) {
         navigate("/dashboard");
+      } else {
+        alert("Submission failed. Please try again.");
+        console.error(response);
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("An error occurred during submission.");
+    } finally {
+      setLoading(false);
+    }
     }
 
     return (
@@ -33,6 +56,22 @@ function FourthPage() {
                     value={link}
                     onChange={(e) => setLink(e.target.value)}
                 />
+                <input
+                    type="password"
+                    placeholder="Enter Your Password"
+                    className="form-input"
+                    value={password}
+                     id="show"
+                    onChange={(e) => setpassword(e.target.value)}
+                />
+                <input
+                    type="checkbox"
+                    onChange={(e) => {
+                        const input = document.getElementById('show');
+                        input.type = e.target.checked ? 'text' : 'password';
+                        className
+                    }}
+                /> Show Password
                 <button className="create-button" onClick={handleSubmit}>Create Account</button>
                 <p className="info-text">
                     By creating an account, you agree to our Terms and Conditions.
