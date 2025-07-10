@@ -10,6 +10,7 @@ function FourthPage() {
     const { userData, setUserData } = useContext(UserContext);
     const [Loading, setLoading] = useState(false)
     const [link, setLink] = useState('');
+    const [password, setpassword] = useState('');
 
     const handleSubmit = async() => {
         // const finalData = { ...userData, link };
@@ -18,7 +19,7 @@ function FourthPage() {
         // navigate("/dashboard")
          try {
       setLoading(true);
-      const finalData = { ...userData, link };
+      const finalData = { ...userData, link, password };
       console.log("Form Submitted", finalData);
 
       const response = await PostData("/api/submitform/", finalData);
@@ -55,6 +56,22 @@ function FourthPage() {
                     value={link}
                     onChange={(e) => setLink(e.target.value)}
                 />
+                <input
+                    type="password"
+                    placeholder="Enter Your Password"
+                    className="form-input"
+                    value={password}
+                     id="show"
+                    onChange={(e) => setpassword(e.target.value)}
+                />
+                <input
+                    type="checkbox"
+                    onChange={(e) => {
+                        const input = document.getElementById('show');
+                        input.type = e.target.checked ? 'text' : 'password';
+                        className
+                    }}
+                /> Show Password
                 <button className="create-button" onClick={handleSubmit}>Create Account</button>
                 <p className="info-text">
                     By creating an account, you agree to our Terms and Conditions.

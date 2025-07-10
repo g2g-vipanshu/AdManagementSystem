@@ -8,6 +8,7 @@ export function UserProvider({ children }) {
         role: '',
         name: '',
         link: '',
+        password: ''
     });
 
     return (
