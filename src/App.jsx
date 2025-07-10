@@ -5,6 +5,7 @@ import SecondPage from './screens/Second/SecondPage';
 import ThirdPage from './screens/Third/ThirdPage';
 import FourthPage from './screens/Fourth/FourthPage';
 import { UserProvider } from './context/UserContext';
+import Dashboard from './screens/dashboard/Dashboard';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/second" element={<SecondPage />} />
           <Route path="/third" element={<ThirdPage />} />
           <Route path="/fourth" element={<FourthPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </UserProvider>

@@ -12,6 +12,7 @@ function FourthPage() {
     const handleSubmit = () => {
         const finalData = { ...userData, link };
         console.log("Form Submitted", finalData);
+        navigate("/dashboard");
     }
 
     return (
