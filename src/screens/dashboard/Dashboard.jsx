@@ -17,6 +17,8 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = localStorage.getItem('token');
+      console.log("sag", token)
       try {
         const [productData, totalView, addWise, locationData, trendData] = await Promise.all([
           GetData("/api/pd"),

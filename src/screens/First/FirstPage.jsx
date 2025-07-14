@@ -1,8 +1,8 @@
 import React from 'react';
-import '../App.css';
+import './css/FirstPage.css';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 
 const industries = [
     "Owner",
