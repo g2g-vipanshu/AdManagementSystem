@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 
-const token = localStorage.getItem('token');
+// const token = localStorage.getItem('token');
 const api = axios.create({
-  baseURL: 'http://10.5.50.66:8005',
+  baseURL: 'http://10.5.50.69:8005',
   //   baseURL: import.meta.env.VITE_API_BASE,
   timeout: 5000,
   headers: {
@@ -12,6 +12,16 @@ const api = axios.create({
   },
 
   withCredentials: true,
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
 });
 
 export const GetData = async (route, data) => {
