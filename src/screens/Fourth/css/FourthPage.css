@@ -18,7 +18,7 @@
 .back-button {
   background: none;
   border: none;
-  color: #1d8c1d;
+  color: #348485;
   font-size: 20px;
   cursor: pointer;
   padding: 5px 25px;
@@ -68,4 +68,21 @@
   color: #666;
   max-width: 400px;
   margin: 4px 0;
+}
+
+.show-password-wrapper {
+  width: 27%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+.show-password-wrapper label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #444;
+  cursor: pointer;
 }

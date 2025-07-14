@@ -3,14 +3,13 @@ import axios from 'axios';
 
 const token = localStorage.getItem('token');
 const api = axios.create({
-  baseURL: 'http://10.5.50.66:8005',
+  baseURL: 'http://10.5.50.69:8005',
   //   baseURL: import.meta.env.VITE_API_BASE,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
-    // 'Authorization': `Bearer ${token}` 
+    'Authorization': `Bearer ${token}`
   },
-
   withCredentials: true,
 });
 

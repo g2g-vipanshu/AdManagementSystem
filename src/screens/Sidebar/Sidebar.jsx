@@ -10,14 +10,12 @@ function Sidebar({ isOpen }) {
         'Campaign 5'
     ];
 
-    if (!isOpen) return null;
-
     return (
-        <div className="sidebar">
-            <h3>Campaigns</h3>
-            <ul>
+        <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+            <h3 className="sidebar-title">Campaigns</h3>
+            <ul className="sidebar-list">
                 {campaigns.map((campaign, index) => (
-                    <li key={index}>{campaign}</li>
+                    <li key={index} className="sidebar-item">{campaign}</li>
                 ))}
             </ul>
         </div>

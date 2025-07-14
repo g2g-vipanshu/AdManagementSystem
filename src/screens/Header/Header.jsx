@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './css/Header.css';
-import { FaPlus, FaUserCircle, FaBullhorn } from 'react-icons/fa'; // Campaign icon
+import { FaPlus, FaUserCircle, FaBullhorn } from 'react-icons/fa';
 import Sidebar from '../Sidebar/Sidebar';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+    const navigate = useNavigate();
     const [showDropdown, setShowDropdown] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -14,6 +16,11 @@ function Header() {
     const toggleSidebar = () => {
         setSidebarOpen(prev => !prev);
     };
+
+    const handleClick = () => {
+        localStorage.removeItem("token")
+        window.location.href = '/';
+    }
 
     return (
         <>
@@ -29,7 +36,7 @@ function Header() {
                 <div className="header-center">
                     <input type="text" className="header-search" placeholder="Search campaigns..." />
                     <div className="add-button-wrapper">
-                        <button className="add-button">
+                        <button className="add-button" onClick={() => navigate("/addCampaign")}>
                             <FaPlus />
                         </button>
                         <div className="add-tooltip">Create New Campaign</div>
@@ -43,14 +50,13 @@ function Header() {
                             <div className="user-menu">
                                 <p><strong>John Doe</strong></p>
                                 <p>Gulp2go</p>
-                                <button className="signout-button">Sign Out</button>
+                                <button className="signout-button" onClick={handleClick}>Sign Out</button>
                             </div>
                         )}
                     </div>
                 </div>
             </header>
 
-            {/* Sidebar */}
             <Sidebar isOpen={sidebarOpen} />
         </>
     );

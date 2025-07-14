@@ -12,30 +12,26 @@ function FourthPage() {
     const [link, setLink] = useState('');
     const [password, setpassword] = useState('');
 
-    const handleSubmit = async() => {
-        // const finalData = { ...userData, link };
-        // console.log("Form Submitted", finalData);
-        // const submission = await PostData("/api/submitform/", finalData)
-        // navigate("/dashboard")
-         try {
-      setLoading(true);
-      const finalData = { ...userData, link, password };
-      console.log("Form Submitted", finalData);
+    const handleSubmit = async () => {
+        try {
+            setLoading(true);
+            const finalData = { ...userData, link, password };
+            console.log("Form Submitted", finalData);
 
-      const response = await PostData("/api/submitform/", finalData);
+            const response = await PostData("/api/submitform/", finalData);
 
-      if (response?.is_success) {
-        navigate("/dashboard");
-      } else {
-        alert("Submission failed. Please try again.");
-        console.error(response);
-      }
-    } catch (error) {
-      console.error("Submission error:", error);
-      alert("An error occurred during submission.");
-    } finally {
-      setLoading(false);
-    }
+            if (response?.is_success) {
+                navigate("/dashboard");
+            } else {
+                alert("Submission failed. Please try again.");
+                console.error(response);
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+            alert("An error occurred during submission.");
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -61,17 +57,21 @@ function FourthPage() {
                     placeholder="Enter Your Password"
                     className="form-input"
                     value={password}
-                     id="show"
+                    id="show"
                     onChange={(e) => setpassword(e.target.value)}
                 />
-                <input
-                    type="checkbox"
-                    onChange={(e) => {
-                        const input = document.getElementById('show');
-                        input.type = e.target.checked ? 'text' : 'password';
-                        className
-                    }}
-                /> Show Password
+                <div className="show-password-wrapper">
+                    <label>
+                        Show Password
+                        <input
+                            type="checkbox"
+                            onChange={(e) => {
+                                const input = document.getElementById('show');
+                                input.type = e.target.checked ? 'text' : 'password';
+                            }}
+                        />
+                    </label>
+                </div>
                 <button className="create-button" onClick={handleSubmit}>Create Account</button>
                 <p className="info-text">
                     By creating an account, you agree to our Terms and Conditions.
