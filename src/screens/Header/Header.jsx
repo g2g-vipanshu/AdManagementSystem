@@ -38,7 +38,7 @@ function Header() {
                 <div className="header-left">
                     <img src="/g2g-logo.jpeg" alt="Logo" className="header-logo" />
                     <div className="campaign-icon-wrapper" onClick={toggleSidebar}>
-                        <FaBullhorn className="campaign-icon" title="Campaigns" />
+                        {/* <FaBullhorn className="campaign-icon" title="Campaigns" /> */}
                         <div className="campaign-tooltip">Campaigns</div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ function Header() {
                 </div>
             </header>
 
-            <Sidebar isOpen={sidebarOpen} />
+            {/* <Sidebar isOpen={sidebarOpen} /> */}
         </>
     );
 }

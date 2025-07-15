@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { GetData } from '../../Api';
 import Header from '../Header/Header';
 import { useNavigate } from 'react-router-dom';
+import './css/Dashboard.css';
 
 function Userdashboard() {
   const navigate = useNavigate();
-  const [Campaign, setcampaign] = useState([])
+  const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -14,7 +15,7 @@ function Userdashboard() {
       try {
         const user_id = localStorage.getItem('id');
         const campaignData = await GetData(`/api/campaign/?id=${user_id}`);
-        if (campaignData) setcampaign(campaignData.message);
+        if (campaignData) setCampaigns(campaignData.message);
       } catch (err) {
         console.error("Failed to fetch campaign data:", err);
         setError("Failed to load campaign data. Please try again.");
@@ -22,16 +23,16 @@ function Userdashboard() {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
   if (loading) return <p>Loading campaigns...</p>;
   if (error) return <p>{error}</p>;
+
   return (
     <>
       <Header />
-      <div style={{ padding: "20px" }}>
+      <div className="user-dashboard">
         <button
           type="button"
           className="back-button"
@@ -39,27 +40,30 @@ function Userdashboard() {
         >
           &larr; Back
         </button>
-        <h2 style={{ textAlign: 'center' }}>Campaign Dashboard</h2>
-        <div className="campaign-container">
-          {Campaign.map((item) => (
-            <div className="campaign-card" key={item.id}>
-              <h3>{item.campaign_name.toUpperCase()}</h3>
-              <p><strong>Type:</strong> {item.campaign_type}</p>
-              <p><strong>Area:</strong> {item.area}, {item.city}, {item.state}</p>
-              <p><strong>Start:</strong> {item.start_date.split("T")[0]}</p>
-              <p><strong>End:</strong> {item.end_date.split("T")[0]}</p>
-              {/* <p><strong>Objective:</strong> {item.objective}</p> */}
-              <p><strong>Manager:</strong> {item.campaign_manager}</p>
-              <p><strong>Message:</strong> {item.campaign_message}</p>
-              {item.products && <p><strong>Products:</strong> {item.products}</p>}
-              {/* {item.dc_involved && <p><strong>DC:</strong> {item.dc_involved}</p>} */}
-              <p><strong>Status:</strong> {item.status}</p>
-            </div>
-          ))}
+        <h2 className="campaign-heading">My Campaigns</h2>
+
+        <div className="campaign-list-header">
+          <span>Campaign Name</span>
+          <span>Start Date</span>
+          <span>End Date</span>
         </div>
+
+        <ul className="campaign-list">
+          {campaigns.map((item) => (
+            <li
+              key={item.id}
+              className="campaign-list-item"
+              onClick={() => navigate(`/campaign-details/${item.id}`, { state: item })}
+            >
+              <span className="campaign-title">{item.campaign_name}</span>
+              <span>{item.start_date.split('T')[0]}</span>
+              <span>{item.end_date.split('T')[0]}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
-  )
+  );
 }
 
 export default Userdashboard;
