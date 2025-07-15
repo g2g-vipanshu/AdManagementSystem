@@ -47,35 +47,11 @@ function Dashboard() {
   if (error) return <div className="error-message">{error}</div>;
 
   return (
-    // <div className="dashboard">
-    //   <Header />
-    //   {total.length > 0 && (
-    //     <div className="dashboard-main">
-    //       <div className="stat-card">
-    //         <h3>Total Views</h3>
-    //         <p className="stat-value">{total[0].Total_Views}</p>
-    //       </div>
-    //       <div className="stat-card">
-    //         <h3>Total Clicks</h3>
-    //         <p className="stat-value">{total[0].Total_Clicks}</p>
-    //       </div>
-    //       <div className="stat-card">
-    //         <h3>CTR</h3>
-    //         <p className="stat-value">{total[0].CTR}%</p>
-    //       </div>
-    //     </div>
-    //   )}
-
-    //   <LocationSummary data={location} />
-    //   <MonthlyViewsChart data={addwise} />
-    //   <Trendcampaign data={trend} />
-    // </div>
-
     <div className="dashboard">
       <Header />
 
       {total.length > 0 && (
-        <div className="dashboard-section">
+        <div className="dashboard-section side-by-side">
           <div className="dashboard-main">
             <div className="stat-card">
               <h3>Total Views</h3>

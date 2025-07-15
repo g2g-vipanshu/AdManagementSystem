@@ -2,7 +2,13 @@
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin: 30px 0;
+  margin: 30px;
+  flex-wrap: wrap;
+}
+
+.side-by-side {
+  display: flex;
+  align-items: flex-end;
   flex-wrap: wrap;
 }
 
@@ -68,6 +74,7 @@
 }
 
 .section-title {
+  text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
 }
@@ -76,11 +83,6 @@
   padding: 20px;
   max-width: 1400px;
   margin: 0 auto;
-}
-
-.section-title {
-  font-size: 24px;
-  margin-bottom: 20px;
 }
 
 .campaign-wrapper {
@@ -102,6 +104,7 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   box-sizing: border-box;
+  text-align: center;
 }
 
 .campaign-card h3 {
@@ -109,6 +112,8 @@
 }
 
 .campaign-details p {
+  display: flex;
+  justify-content: space-between;
   margin: 4px 0;
 }
 

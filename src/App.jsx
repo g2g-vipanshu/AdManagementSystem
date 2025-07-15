@@ -9,7 +9,7 @@ import Dashboard from './screens/dashboard/Dashboard';
 import LoginPage from './screens/Login/Login';
 import AddCampaign from './screens/Campaign/Addcampaign';
 import UserDashboard from './screens/dashboard/Userdashboard';
-// import DetailDashboard from './screens/dashboard/DetailDashboard';
+import UserGraphdashboard from './screens/dashboard/UserGraphdashboard';
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/addCampaign" element={<AddCampaign />} />
           <Route path="/userDashboard" element={<UserDashboard />} />
-          {/* <Route path="/campaign-details/:id" element={<DetailDashboard />} /> */}
+          <Route path="/campaign-details/:id" element={<UserGraphdashboard />} />
         </Routes>
       </Router>
     </UserProvider>

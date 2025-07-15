@@ -1,9 +1,8 @@
 
-
-
 import React, { useState, useEffect } from 'react';
 import { GetData } from '../../Api';
 import './css/Dashboard.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import '../Header/css/Header.css';
 import {
@@ -21,9 +20,15 @@ function UserGraphdashboard() {
   const [total, setTotal] = useState([]);
   const [addwise, setAddwise] = useState([]);
   const [location, setLocation] = useState([]);
-  const [campaign, setCampaign] = useState(null);
+  const [campaign, setCampaign] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const location_id = useLocation();
+  const campaign_id = location_id.state?.id;
+  // console.log(campaign_id, "this is campoign id")
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,13 +38,16 @@ function UserGraphdashboard() {
           GetData("/api/get/total_view_id/"),
           GetData("/api/get/addwise_id/"),
           GetData("/api/get/location_id/"),
-          GetData(`/api/campaign/?id=${id}`)
+          GetData(`/api/campaign_id/?id=${campaign_id}`)
         ]);
 
         if (totalView) setTotal(totalView.message);
         if (addWise) setAddwise(addWise.message);
         if (locationData) setLocation(locationData.message);
-        if (trendData) setCampaign(trendData.message ?? trendData);
+        if (trendData && Array.isArray(trendData.message)) {
+          setCampaign(trendData.message[0]);
+        }
+        console.log("dfvesv", campaign)
       } catch (err) {
         console.error("Failed to fetch dashboard data:", err);
         setError("Failed to load data. Please try again.");
@@ -57,7 +65,13 @@ function UserGraphdashboard() {
   return (
     <div className="dashboard">
       <Header />
-
+      <button
+        type="button"
+        className="back-button"
+        onClick={() => navigate('/userDashboard')}
+      >
+        &larr; Back
+      </button>
       {total.length > 0 && (
         <div className="dashboard-main">
           <div className="stat-card">
@@ -138,6 +152,9 @@ function SingleCampaignCard({ campaign }) {
               <p><strong>Message:</strong> {campaign.campaign_message}</p>
               {campaign.products && <p><strong>Products:</strong> {campaign.products}</p>}
               <p><strong>Status:</strong> {campaign.status}</p>
+              <p><strong>Promotion Material:</strong> {campaign.promotion_material}</p>
+              <p><strong>Incentive Schema:</strong> {campaign.incentive_schema}</p>
+              <p><strong>Total Customer:</strong> {campaign.total_customer ?? '0'}</p>
             </div>
           </div>
         </div>

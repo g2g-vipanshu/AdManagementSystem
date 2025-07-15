@@ -13,8 +13,9 @@ function Userdashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const user_id = localStorage.getItem('id');
-        const campaignData = await GetData(`/api/campaign/?id=${user_id}`);
+        const id = localStorage.getItem('id');
+        const campaignData = await GetData(`/api/campaign/?id=${id}`);
+        // console.log("first", campaignData.message)
         if (campaignData) setCampaigns(campaignData.message);
       } catch (err) {
         console.error("Failed to fetch campaign data:", err);
