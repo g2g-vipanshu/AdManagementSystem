@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './css/Header.css';
 import { FaPlus, FaUserCircle, FaBullhorn } from 'react-icons/fa';
 import Sidebar from '../Sidebar/Sidebar';
 import { useNavigate } from 'react-router-dom';
+import api from '../../Api';
 
 function Header() {
     const navigate = useNavigate();
     const [showDropdown, setShowDropdown] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [name, setName] = useState('')
+
+    useEffect(() => {
+        const storedName = localStorage.getItem('name');
+        if (storedName) {
+            setName(storedName);
+        }
+    }, [])
 
     const handleDropdownToggle = () => {
         setShowDropdown(prev => !prev);
@@ -18,7 +27,8 @@ function Header() {
     };
 
     const handleClick = () => {
-        localStorage.removeItem("token")
+        localStorage.clear("token")
+        delete api.defaults.headers.common['Authorization'];
         window.location.href = '/';
     }
 
@@ -48,8 +58,13 @@ function Header() {
                         <FaUserCircle size={24} className="user-icon" />
                         {showDropdown && (
                             <div className="user-menu">
-                                <p><strong>John Doe</strong></p>
-                                <p>Gulp2go</p>
+                                <p><strong>{name || 'User'}</strong></p>
+                                <button
+                                    className="user-menu-button"
+                                    onClick={() => navigate("/userDashboard")}
+                                >
+                                    My Campaign
+                                </button>
                                 <button className="signout-button" onClick={handleClick}>Sign Out</button>
                             </div>
                         )}

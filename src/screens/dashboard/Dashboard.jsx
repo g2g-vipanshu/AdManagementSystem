@@ -18,7 +18,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
-      console.log("sag", token)
+      // console.log("token", token)
       try {
         const [productData, totalView, addWise, locationData, trendData] = await Promise.all([
           GetData("/api/pd"),
@@ -81,9 +81,9 @@ function LocationSummary({ data }) {
         <div className="location-card" key={index}>
           <div className="location-name">{item.location}</div>
           <div className="metrics">
-            <div className="metric">Ajio Views: {item.Ajio_Views}</div>
-            <div className="metric">Qurez Views: {item.Qurez_Views}</div>
-            <div className="metric">TM Views: {item.TM_Views}</div>
+            <div className="metric">Ajio Views: {item.ajio_views}</div>
+            <div className="metric">Qurez Views: {item.qurez_views}</div>
+            <div className="metric">TM Views: {item.tm_views}</div>
           </div>
         </div>
       ))}
@@ -103,9 +103,9 @@ function MonthlyViewsChart({ data }) {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="Ajio_Views" stroke="#8884d8" name="Ajio" />
-          <Line type="monotone" dataKey="TM_Views" stroke="#82ca9d" name="TM Views" />
-          <Line type="monotone" dataKey="Qurez_View" stroke="#ff7300" name="Qurez" />
+          <Line type="monotone" dataKey="Ajio_Views_Cumulative" stroke="#8884d8" name="Ajio" />
+          <Line type="monotone" dataKey="TM_Views_Cumulative" stroke="#82ca9d" name="TM Views" />
+          <Line type="monotone" dataKey="Qurez_Views_Cumulative" stroke="#ff7300" name="Qurez" />
         </LineChart>
       </ResponsiveContainer>
     </div>
@@ -121,18 +121,18 @@ function Trendcampaign({ data }) {
         <div className="campaign-container">
           {data.map((item) => (
             <div className="campaign-card" key={item.id}>
-              <h3>{item.campaign_name}</h3>
+              <h3>{item.campaign_name.toUpperCase()}</h3>
               <div className="campaign-details">
                 <p><strong>Type:</strong> {item.campaign_type}</p>
-                <p><strong>Status:</strong> {item.status}</p>
                 <p><strong>Area:</strong> {item.area}, {item.city}, {item.state}</p>
                 <p><strong>Start:</strong> {item.start_date.split("T")[0]}</p>
                 <p><strong>End:</strong> {item.end_date.split("T")[0]}</p>
-                <p><strong>Objective:</strong> {item.objective}</p>
+                {/* <p><strong>Objective:</strong> {item.objective}</p> */}
                 <p><strong>Manager:</strong> {item.campaign_manager}</p>
                 <p><strong>Message:</strong> {item.campaign_message}</p>
                 {item.products && <p><strong>Products:</strong> {item.products}</p>}
-                {item.dc_involved && <p><strong>DC:</strong> {item.dc_involved}</p>}
+                <p><strong>Status:</strong> {item.status}</p>
+                {/* {item.dc_involved && <p><strong>DC:</strong> {item.dc_involved}</p>} */}
               </div>
             </div>
           ))}

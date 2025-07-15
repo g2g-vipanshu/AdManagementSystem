@@ -19,6 +19,11 @@ function FourthPage() {
             console.log("Form Submitted", finalData);
 
             const response = await PostData("/api/submitform/", finalData);
+            console.log("first", response)
+            localStorage.setItem("token", response.message);
+            localStorage.setItem("name", response.name);
+            localStorage.setItem("id", response.id);
+            console.log(response)
 
             if (response?.is_success) {
                 navigate("/dashboard");

@@ -13,6 +13,8 @@ function LoginPage() {
       const response = await PostData("/api/login", { name, password })
       console.log("first", response)
       localStorage.setItem("token", response.message);
+      localStorage.setItem("name", response.name);
+      localStorage.setItem('id', response.id);
       console.log(response)
 
       if (response?.is_success) {

@@ -11,14 +11,14 @@ function AddCampaign() {
     campaign_type: '',
     start_date: '',
     end_date: '',
-    objective: '',
-    audience: '',
+    // objective: '',
+    // audience: '',
     state: '',
     city: '',
     area: '',
     products: '',
-    sale_reps: '',
-    dc_involved: '',
+    // sale_reps: '',
+    // dc_involved: '',
     campaign_manager: '',
     promotion_material: '',
     campaign_message: '',
@@ -55,15 +55,21 @@ function AddCampaign() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const storedId = localStorage.getItem('id')
+
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
+    const payload = {
+      ...formData,
+      id: storedId
+    };
     try {
-      const result = await PostData('/api/campaign/add', formData);
-      if (result.is_sucess) {
+      const result = await PostData('/api/campaign/add', payload);
+      if (result.is_success) {
         navigate('/userDashboard');
       } else {
         alert(result.message || 'Something went wrong!');

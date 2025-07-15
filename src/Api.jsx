@@ -2,18 +2,18 @@ import axios from 'axios';
 
 
 // const token = localStorage.getItem('token');
-const api = axios.create({
+const Api = axios.create({
   baseURL: 'http://10.5.50.69:8005',
   //   baseURL: import.meta.env.VITE_API_BASE,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
+    // 'Authorization': `Bearer ${token}`
   },
   withCredentials: true,
 });
 
-api.interceptors.request.use((config) => {
+Api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -25,7 +25,7 @@ api.interceptors.request.use((config) => {
 
 export const GetData = async (route, data) => {
   try {
-    const response = await api.get(route);
+    const response = await Api.get(route);
     return response.data;
   } catch (error) {
     console.error("API call error: ", error.message);
@@ -35,7 +35,7 @@ export const GetData = async (route, data) => {
 
 export const PostData = async (route, data) => {
   try {
-    const response = await api.post(route, data);
+    const response = await Api.post(route, data);
     // console.log(response,"yahi h rewpones")
     return response.data;
   } catch (error) {
@@ -46,7 +46,7 @@ export const PostData = async (route, data) => {
 
 export const PutData = async (route, data) => {
   try {
-    const response = await api.put(route, data);
+    const response = await Api.put(route, data);
     return response.data;
   } catch (error) {
     console.error("API call error: ", error.message);
@@ -56,7 +56,7 @@ export const PutData = async (route, data) => {
 
 export const DeleteData = async (route) => {
   try {
-    const response = await api.delete(route);
+    const response = await Api.delete(route);
     return response.data;
   } catch (error) {
     console.error("API call error: ", error.message);
@@ -64,4 +64,4 @@ export const DeleteData = async (route) => {
   }
 };
 
-
+export default Api;
